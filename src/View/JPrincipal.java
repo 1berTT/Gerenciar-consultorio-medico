@@ -186,11 +186,21 @@ public class JPrincipal extends javax.swing.JFrame {
 
         jMenuItemVerificarConsulta.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\serum.png")); // NOI18N
         jMenuItemVerificarConsulta.setText("Consulta");
+        jMenuItemVerificarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVerificarConsultaActionPerformed(evt);
+            }
+        });
         jMenuVerificarMedico.add(jMenuItemVerificarConsulta);
         jMenuVerificarMedico.add(jSeparator8);
 
         jMenuItemVerificarRecepcionista.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\receptionist.png")); // NOI18N
         jMenuItemVerificarRecepcionista.setText("Recepcionista");
+        jMenuItemVerificarRecepcionista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVerificarRecepcionistaActionPerformed(evt);
+            }
+        });
         jMenuVerificarMedico.add(jMenuItemVerificarRecepcionista);
 
         jMenuBar1.add(jMenuVerificarMedico);
@@ -212,7 +222,10 @@ public class JPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemVerificarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerificarSalaActionPerformed
-        // TODO add your handling code here:
+        JIFVerificarSala view = new JIFVerificarSala(this.model);
+        jDesktopPanePainel.add(view);
+        this.centralizarTela(view);
+        view.setVisible(true);
     }//GEN-LAST:event_jMenuItemVerificarSalaActionPerformed
 
     private void jMenuItemVerificarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerificarMedicoActionPerformed
@@ -227,7 +240,10 @@ public class JPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuCadastrarActionPerformed
 
     private void jMenuItemConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultaActionPerformed
-
+        JIFCadastrarConsulta view = new JIFCadastrarConsulta(this.model);
+        jDesktopPanePainel.add(view);
+        this.centralizarTela(view);
+        view.setVisible(true);
     }//GEN-LAST:event_jMenuItemConsultaActionPerformed
 
     private void jMenuItemSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalaActionPerformed
@@ -252,7 +268,10 @@ public class JPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemMedicoActionPerformed
 
     private void jMenuItemRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecepcionistaActionPerformed
-        // TODO add your handling code here:
+        JIFCadastrarRecepcionista view = new JIFCadastrarRecepcionista(this.model);
+        jDesktopPanePainel.add(view);
+        this.centralizarTela(view);
+        view.setVisible(true);
     }//GEN-LAST:event_jMenuItemRecepcionistaActionPerformed
 
     private void jMenuItemVerificarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerificarPacienteActionPerformed
@@ -261,6 +280,20 @@ public class JPrincipal extends javax.swing.JFrame {
        this.centralizarTela(view);
        view.setVisible(true);
     }//GEN-LAST:event_jMenuItemVerificarPacienteActionPerformed
+
+    private void jMenuItemVerificarRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerificarRecepcionistaActionPerformed
+       JIFVerificarRecepcionista view = new JIFVerificarRecepcionista(this.model);
+       jDesktopPanePainel.add(view);
+       this.centralizarTela(view);
+       view.setVisible(true);
+    }//GEN-LAST:event_jMenuItemVerificarRecepcionistaActionPerformed
+
+    private void jMenuItemVerificarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerificarConsultaActionPerformed
+       JIFVerificarConsulta view = new JIFVerificarConsulta(this.model);
+       jDesktopPanePainel.add(view);
+       this.centralizarTela(view);
+       view.setVisible(true);
+    }//GEN-LAST:event_jMenuItemVerificarConsultaActionPerformed
 
     /**
      * @param args the command line arguments

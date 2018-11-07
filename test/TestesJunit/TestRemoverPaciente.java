@@ -27,7 +27,6 @@ public class TestRemoverPaciente {
         PacienteDAO.getInstancia().pesquisar(pr);
         
         assertNull("", pr.getCpf());
-        assertNull("", pr.getMedico());
         assertNull("", pr.getNomePaciente());
         assertNull("", pr.getTelefone());
            

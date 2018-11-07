@@ -7,7 +7,6 @@ public class PacienteRaiz {
     private String nomePaciente;
     private String telefone;
     private String cpf;
-    private MedicoRaiz medico;
 
     public int getIdPaciente() {
         return idPaciente;
@@ -39,18 +38,7 @@ public class PacienteRaiz {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public MedicoRaiz getMedico() {
-        return medico;
-    }
-
-    public void setMedico(MedicoRaiz medico) {
-        this.medico = medico;
-    }
-    
-    
-    
+    }    
 
     
 }

@@ -1,12 +1,12 @@
 
 package View;
 
-import DAO.HistoricoDAO;
+import DAO.ConsultaDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
 import DAO.RecepcionistaDAO;
 import DAO.SalaDAO;
-import Model.HistoricoRaiz;
+import Model.ConsultaRaiz;
 import Model.MedicoRaiz;
 import Model.PacienteRaiz;
 import Model.RecepcionistaRaiz;
@@ -104,7 +104,7 @@ public class Testando {
         SalaRaiz s = new SalaRaiz();
         s.setIdSala(1);
         
-        HistoricoRaiz hr = new HistoricoRaiz();
+        ConsultaRaiz hr = new ConsultaRaiz();
         
         hr.setDataConsulta("12ffr");
         hr.setMedico(m);
@@ -112,17 +112,39 @@ public class Testando {
         hr.setSala(s);
         hr.setIdHistorico(2);
         
-        HistoricoDAO hd = new HistoricoDAO();
+        ConsultaDAO hd = new ConsultaDAO();
         
         
         hd.listar();
         */
         
         
-        JLogin jl = new JLogin();
-        jl.setVisible(true);
+        //JLogin jl = new JLogin();
+        //jl.setVisible(true);
         
+        ConsultaRaiz cr = new ConsultaRaiz();
         
+        cr.setDataConsulta("12/21/2018");
+        cr.setHoraConsulta("13:00");
+        
+        MedicoRaiz mr = new MedicoRaiz();
+        SalaRaiz sr = new SalaRaiz();
+        PacienteRaiz pr = new PacienteRaiz();
+        
+        mr.setIdMedico(1);
+        MedicoDAO.getInstancia().pesquisar(mr);
+        
+        pr.setIdPaciente(1);
+        PacienteDAO.getInstancia().pesquisar(pr);
+        
+        sr.setIdSala(2);
+        SalaDAO.getInstancia().pesquisar(sr);
+        
+        cr.setMedico(mr);
+        cr.setPaciente(pr);
+        cr.setSala(sr);
+        
+        ConsultaDAO.getInstancia().adicionar(cr);
         
     }
     

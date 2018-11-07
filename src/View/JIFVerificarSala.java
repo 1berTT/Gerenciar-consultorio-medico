@@ -1,23 +1,128 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package View;
 
-/**
- *
- * @author humbe
- */
+import Control.VerificarSalaControl;
+import Model.FachadaModels;
+import Model.SalaRaiz;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+
 public class JIFVerificarSala extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form JIFVerificarSala
-     */
-    public JIFVerificarSala() {
+    
+    private static FachadaModels model;
+    
+    public JIFVerificarSala(FachadaModels model) {
+        if (model != null) {
+            this.model = model;
+        } else {
+            this.model = new FachadaModels();
+        }
+        
         initComponents();
     }
+    
+    
+    public String getCodigo() {
+        return this.jTextFieldCodigo.getText();
+    }
+    
+    public String getBloco() {
+        return this.jTextFieldBloco.getText();
+    }
+    
+    public String getNumero() {
+        return this.jTextFieldNumero.getText();
+    }
+    
+    public JTable getTableSalas() {
+        return this.jTableSalas;
+    }
+    
+    public JComboBox getComboPesquisa() {
+        return this.jComboBox1;
+    }
+    
+    public JTextField getTextPesquisa() {
+        return this.jTextFieldPesquisar;
+    }
+    
+    public void setCodigo(String codigo) {
+        this.jTextFieldCodigo.setText(codigo);
+    }
+    
+    public void setBloco(String bloco) {
+        this.jTextFieldBloco.setText(bloco);
+    }
+    
+    public void setNumero(String numero) {
+        this.jTextFieldNumero.setText(numero);
+    }
 
+    
+    
+    public void fecha() {
+        this.setVisible(false);
+    }
+    
+    public void addTipoLabelCombo(String label) {
+        if (label != null) {
+            this.jLabel2.setText(label);
+        }
+    }
+    
+    
+    public void mostraMensagem(String mensagem) {
+        if (mensagem != null) {
+            JOptionPane.showMessageDialog(rootPane, mensagem);
+        }
+    }
+    
+    public void setaCampos(SalaRaiz sala) {
+        this.setCodigo(String.valueOf(sala.getIdSala()));
+        this.setBloco(String.valueOf(sala.getBloco()));
+        this.setNumero(String.valueOf(sala.getNumeroSala()));
+        
+        this.enabledCampos(true);
+    }
+    
+    
+    public void limpaCampos() {
+        this.setCodigo("");
+        this.setBloco("");
+        this.setNumero("");
+        
+        this.enabledCampos(false);
+    }
+    
+    public void enabledCampos(boolean valor){
+        this.jTextFieldCodigo.setEnabled(false);
+        this.jTextFieldBloco.setEnabled(valor);
+        this.jTextFieldNumero.setEnabled(valor);
+    }
+        
+        
+    public boolean validaCampos() {
+        if (this.jTextFieldBloco.getText().trim().equals("")) {
+            this.mostraMensagem("Informe o bloco da sala.");
+            this.jTextFieldBloco.requestFocus();
+            return false;
+        }
+
+        if (this.jTextFieldNumero.getText().trim().equals("")) {
+            this.mostraMensagem("Informe o numero da sala.");
+            this.jTextFieldNumero.requestFocus();
+            return false;
+        }
+        return true;
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +132,278 @@ public class JIFVerificarSala extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextFieldPesquisar = new javax.swing.JTextField();
+        jButtonPesquisar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableSalas = new javax.swing.JTable();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldCodigo = new javax.swing.JTextField();
+        jTextFieldBloco = new javax.swing.JTextField();
+        jTextFieldNumero = new javax.swing.JTextField();
+        jButtonAlterar = new javax.swing.JButton();
+        jButtonDeletar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
+
+        jLabel3.setText("Pesquisar Por:");
+
+        jComboBox1.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Número" }));
+        jComboBox1.setLightWeightPopupEnabled(false);
+        jComboBox1.setMinimumSize(new java.awt.Dimension(6, 23));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jTextFieldPesquisar.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        jTextFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPesquisarActionPerformed(evt);
+            }
+        });
+        jTextFieldPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldPesquisarKeyTyped(evt);
+            }
+        });
+
+        jButtonPesquisar.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\research.png")); // NOI18N
+        jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Código");
+
+        jTableSalas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Bloco", "Número"
+            }
+        ));
+        jTableSalas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableSalasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableSalas);
+
+        jLabel1.setText("Código:");
+
+        jLabel4.setText("Bloco:");
+
+        jLabel5.setText("Número:");
+
+        jButtonAlterar.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\checked.png")); // NOI18N
+        jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
+
+        jButtonDeletar.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\x-button.png")); // NOI18N
+        jButtonDeletar.setText("Deletar");
+        jButtonDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextFieldPesquisar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(79, 79, 79)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextFieldBloco))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldNumero)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(84, 84, 84))
+                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAlterar)
+                    .addComponent(jButtonDeletar))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("MUDAR TIPO PESQUISA");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jTextFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPesquisarActionPerformed
+
+    private void jTextFieldPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarKeyTyped
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        control.evento(evt);
+    }//GEN-LAST:event_jTextFieldPesquisarKeyTyped
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("LISTAR");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("ALTERAR");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("EXCLUIR");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonDeletarActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("ABRIR TELA");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jTableSalasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSalasMouseClicked
+        VerificarSalaControl control = new VerificarSalaControl(this, this.model);
+        try {
+            control.evento("SELECAO");
+        } catch (SQLException ex) {
+            Logger.getLogger(JIFVerificarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTableSalasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonDeletar;
+    private javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTableSalas;
+    private javax.swing.JTextField jTextFieldBloco;
+    private javax.swing.JTextField jTextFieldCodigo;
+    private javax.swing.JTextField jTextFieldNumero;
+    private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }

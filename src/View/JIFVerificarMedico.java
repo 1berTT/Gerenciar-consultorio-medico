@@ -68,9 +68,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
     public String getCrm(){
         return this.jTextFieldCrm.getText();
     }
-    public String getHorarios(){
-        return this.jTextFieldHorarios.getText();
-    }
     public String getEmail(){
         return this.jTextFieldEmail.getText();
     }
@@ -92,18 +89,11 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
     public void setCrm(String crm){
         this.jTextFieldCrm.setText(crm);
     }
-    public void setHorario(String horario){
-        this.jTextFieldHorarios.setText(horario);
-    }
     public void setEmail(String email){
         this.jTextFieldEmail.setText(email);
     }
     public void setTelefone(String telefone){
         this.jTextFieldTelefone.setText(telefone);
-    }
-    
-    public JComboBox getComboSala(){
-        return this.jComboBoxSalas;
     }
     
     
@@ -127,12 +117,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
             return false;
         }
         
-        if(this.jTextFieldHorarios.getText().trim().equals("")){
-            this.mostraMensagem("Informe os horarios do medico.");
-            this.jTextFieldHorarios.requestFocus();
-            return false;
-        }
-        
         if(this.jTextFieldEmail.getText().trim().equals("")){
             this.mostraMensagem("Informe o email do medico.");
             this.jTextFieldEmail.requestFocus();
@@ -142,12 +126,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         if(this.jTextFieldTelefone.getText().trim().equals("")){
             this.mostraMensagem("Informe o telefone do medico.");
             this.jTextFieldTelefone.requestFocus();
-            return false;
-        }
-        
-        if (this.jComboBoxSalas.getSelectedIndex() == -1) {
-            this.mostraMensagem("Informe a sala do medico.");
-            this.jComboBoxSalas.requestFocus();
             return false;
         }
         
@@ -163,12 +141,9 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         this.setNome(medico.getNomeMedico());
         this.setEspecialidade(medico.getEspecialidade());
         this.setCrm(medico.getCrm());
-        this.setHorario(medico.getHorario());
         this.setEmail(medico.getEmail());
         this.setTelefone(medico.getTelefone());
         
-        
-        this.getComboSala().setSelectedItem(medico.getSala().getNumeroSala());
         this.enabledCampos(true);
         
     }
@@ -178,11 +153,9 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         this.setNome("");
         this.setEspecialidade("");
         this.setCrm("");
-        this.setHorario("");
         this.setEmail("");
         this.setTelefone("");
-        
-        this.getComboSala().setSelectedIndex(-1);
+  
         this.enabledCampos(false);
     }
     
@@ -191,10 +164,9 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         this.jTextFieldNome.setEnabled(valor);
         this.jTextFieldEspecialidade.setEnabled(valor);
         this.jTextFieldCrm.setEnabled(valor);
-        this.jTextFieldHorarios.setEnabled(valor);
         this.jTextFieldEmail.setEnabled(valor);
         this.jTextFieldTelefone.setEnabled(valor);
-        this.getComboSala().setEnabled(valor);
+       
     }
     
     
@@ -225,10 +197,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldCrm = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextFieldHorarios = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBoxSalas = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
         jTextFieldTelefone = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
@@ -264,11 +232,11 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Especialidade", "CRM", "Horários", "E-mail", "Telefone", "Sala"
+                "Código", "Nome", "Especialidade", "CRM", "E-mail", "Telefone"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -288,8 +256,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
             jTableMedicos.getColumnModel().getColumn(3).setResizable(false);
             jTableMedicos.getColumnModel().getColumn(4).setResizable(false);
             jTableMedicos.getColumnModel().getColumn(5).setResizable(false);
-            jTableMedicos.getColumnModel().getColumn(6).setResizable(false);
-            jTableMedicos.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jTextFieldPesquisar.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -334,10 +300,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
         jLabel5.setText("Especialidade");
 
         jLabel6.setText("CRM");
-
-        jLabel7.setText("Horários");
-
-        jLabel8.setText("Sala");
 
         jLabel9.setText("Telefone");
 
@@ -386,53 +348,42 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel7)
-                        .addGap(245, 245, 245)
-                        .addComponent(jLabel10)
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel9)
-                        .addGap(86, 86, 86)
-                        .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(jTextFieldNome))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jTextFieldHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jTextFieldCrm, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel4)
-                        .addGap(181, 181, 181)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(94, 94, 94)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(13, 13, 13)
+                                    .addComponent(jLabel10))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel9)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(17, 17, 17)
+                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(44, 44, 44)
+                                    .addComponent(jLabel4)
+                                    .addGap(181, 181, 181)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextFieldEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5))))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldCrm, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -458,31 +409,29 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCrm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxSalas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAlterar)
-                    .addComponent(jButtonDeletar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDeletar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAlterar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -557,7 +506,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonDeletar;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBoxSalas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -565,8 +513,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -576,7 +522,6 @@ public class JIFVerificarMedico extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldCrm;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldEspecialidade;
-    private javax.swing.JTextField jTextFieldHorarios;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPesquisar;
     private javax.swing.JTextField jTextFieldTelefone;

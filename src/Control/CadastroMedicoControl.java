@@ -23,28 +23,33 @@ public class CadastroMedicoControl{
     }
     
     public void evento(String evento) {
-        System.out.println("Bora ver essa bagaca");
         if (evento != null) {
-            System.out.println("iveufucuecefwdwd");
             if (evento.equals("CADASTRAR")) {
                 try {
-                    this.model.cadastrarMedico(
-                            this.view.getNome(),
-                            this.view.getCrm(),
-                            this.view.getEspecialidade(),
-                            this.view.getHorario(),
-                            this.view.getEmail(),
-                            this.view.getTelefone(),
-                            this.view.getSala()
-                           
-                    );
-                    System.out.println("entrou aq");
-                    this.view.mostraMensagem("Medico cadastrado com sucesso.");
-                    this.view.fecha();
+                    if(this.view.validaCampos()){    
+                        this.model.cadastrarMedico(
+                                this.view.getNome(),
+                                this.view.getCrm(),
+                                this.view.getEspecialidade(),
+                                this.view.getEmail(),
+                                this.view.getTelefone()
+                        );
+                    
+                        this.view.mostraMensagem("Medico cadastrado com sucesso.");
+                        this.view.fecha();
+                    }
                 } catch (Exception e) {
                     this.view.mostraMensagem("Não foi possível cadastrar o médico.");
                 }
                 
+            }
+            
+            if(evento.equals("LIMPAR")){
+                try{
+                    this.view.limparCampos();
+                }catch(Exception e){
+                    this.view.mostraMensagem("Não foi possível limpar os campos.");
+                }
             }
            
         }

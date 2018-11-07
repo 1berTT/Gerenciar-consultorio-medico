@@ -49,12 +49,6 @@ public class PacienteDAO {
                 paciente.setNomePaciente(result.getString("nome_Paciente"));
                 paciente.setTelefone(result.getString("telefone"));
                 paciente.setCpf(result.getString("cpf"));
-
-                MedicoRaiz medico = new MedicoRaiz();
-                medico.setIdMedico(result.getInt("medico"));
-                MedicoDAO.getInstancia().pesquisar(medico);
-                paciente.setMedico(medico);
-
             }
 
             pstmt.close();
@@ -85,11 +79,6 @@ public class PacienteDAO {
                 p.setNomePaciente(result.getString("nome_Paciente"));
                 p.setTelefone(result.getString("telefone"));
                 p.setCpf(result.getString("cpf"));
-
-                MedicoRaiz medico = new MedicoRaiz();
-                medico.setIdMedico(result.getInt("medico"));
-                MedicoDAO.getInstancia().pesquisar(medico);
-                p.setMedico(medico);
 
                 pacientes.add(p);
 
@@ -122,12 +111,6 @@ public class PacienteDAO {
                 paciente.setNomePaciente(result.getString("nome_Paciente"));
                 paciente.setTelefone(result.getString("telefone"));
                 paciente.setCpf(result.getString("cpf"));
-
-                MedicoRaiz medico = new MedicoRaiz();
-                medico.setIdMedico(result.getInt("medico"));
-                MedicoDAO.getInstancia().pesquisar(medico);
-                paciente.setMedico(medico);
-
             }
 
             pstmt.close();
@@ -141,14 +124,13 @@ public class PacienteDAO {
 
     public void adicionar(PacienteRaiz paciente) throws SQLException {
 
-        String sql = "INSERT INTO PACIENTE(nome_Paciente, telefone, cpf, medico) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO PACIENTE(nome_Paciente, telefone, cpf) VALUES(?,?,?)";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, paciente.getNomePaciente());
             pstmt.setString(2, paciente.getTelefone());
             pstmt.setString(3, paciente.getCpf());
-            pstmt.setInt(4, paciente.getMedico().getIdMedico());
 
             pstmt.execute();
             pstmt.close();
@@ -162,15 +144,14 @@ public class PacienteDAO {
 
     public void alterar(PacienteRaiz paciente) throws SQLException {
 
-        String sql = "UPDATE PACIENTE SET nome_Paciente=?, telefone=?, cpf=?, medico=? WHERE id_Paciente=?";
+        String sql = "UPDATE PACIENTE SET nome_Paciente=?, telefone=?, cpf=? WHERE id_Paciente=?";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, paciente.getNomePaciente());
             pstmt.setString(2, paciente.getTelefone());
             pstmt.setString(3, paciente.getCpf());
-            pstmt.setInt(4, paciente.getMedico().getIdMedico());
-            pstmt.setInt(5, paciente.getIdPaciente());
+            pstmt.setInt(4, paciente.getIdPaciente());
             pstmt.execute();
             pstmt.close();
             connection.close();
@@ -214,11 +195,6 @@ public class PacienteDAO {
                 pr.setNomePaciente(rlst.getString("nome_Paciente"));
                 pr.setTelefone(rlst.getString("telefone"));
                 pr.setCpf(rlst.getString("cpf"));
-
-                MedicoRaiz medico = new MedicoRaiz();
-                medico.setIdMedico(rlst.getInt("medico"));
-                MedicoDAO.getInstancia().pesquisar(medico);
-                pr.setMedico(medico);
 
                 pacientes.add(pr);
 

@@ -48,14 +48,9 @@ public class MedicoDAO {
                 medico.setNomeMedico(result.getString("nome_Medico"));
                 medico.setCrm(result.getString("crm"));
                 medico.setEspecialidade(result.getString("especialidade"));
-                medico.setHorario(result.getString("horario"));
                 medico.setEmail(result.getString("email"));
                 medico.setTelefone(result.getString("telefone"));
 
-                SalaRaiz sala = new SalaRaiz();
-                sala.setIdSala(result.getInt("sala"));
-                SalaDAO.getInstancia().pesquisar(sala);
-                medico.setSala(sala);
 
             }
 
@@ -86,14 +81,9 @@ public class MedicoDAO {
                 medico.setNomeMedico(result.getString("nome_Medico"));
                 medico.setCrm(result.getString("crm"));
                 medico.setEspecialidade(result.getString("especialidade"));
-                medico.setHorario(result.getString("horario"));
                 medico.setEmail(result.getString("email"));
                 medico.setTelefone(result.getString("telefone"));
 
-                SalaRaiz sala = new SalaRaiz();
-                sala.setIdSala(result.getInt("sala"));
-                SalaDAO.getInstancia().pesquisar(sala);
-                medico.setSala(sala);
 
             }
 
@@ -126,15 +116,8 @@ public class MedicoDAO {
                 m.setNomeMedico(result.getString("nome_Medico"));
                 m.setEspecialidade(result.getString("especialidade"));
                 m.setCrm(result.getString("crm"));
-                m.setHorario(result.getString("horario"));
                 m.setEmail(result.getString("email"));
                 m.setTelefone(result.getString("telefone"));
-                
-
-                SalaRaiz sala = new SalaRaiz();
-                sala.setIdSala(result.getInt("sala"));
-                SalaDAO.getInstancia().pesquisar(sala);
-                m.setSala(sala);
 
                 medicos.add(m);
 
@@ -156,16 +139,14 @@ public class MedicoDAO {
     
     public void adicionar(MedicoRaiz medico) throws SQLException {
 
-        String sql = "INSERT INTO MEDICO(nome_Medico, crm, especialidade, horario, email, telefone, sala) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO MEDICO(nome_Medico, crm, especialidade, email, telefone) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, medico.getNomeMedico());
             pstmt.setString(2, medico.getCrm());
             pstmt.setString(3, medico.getEspecialidade());
-            pstmt.setString(4, medico.getHorario());
-            pstmt.setString(5, medico.getEmail());
-            pstmt.setString(6, medico.getTelefone());
-            pstmt.setInt(7, medico.getSala().getIdSala());
+            pstmt.setString(4, medico.getEmail());
+            pstmt.setString(5, medico.getTelefone());
             pstmt.execute();
             pstmt.close();
             connection.close();
@@ -178,18 +159,16 @@ public class MedicoDAO {
 
     public void alterar(MedicoRaiz medico) throws SQLException {
 
-        String sql = "UPDATE MEDICO SET nome_Medico=?, crm=?, especialidade=?, horario=?, email=?, telefone=?, sala=? WHERE id_Medico=?";
+        String sql = "UPDATE MEDICO SET nome_Medico=?, crm=?, especialidade=?, email=?, telefone=? WHERE id_Medico=?";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, medico.getNomeMedico());
             pstmt.setString(2, medico.getCrm());
             pstmt.setString(3, medico.getEspecialidade());
-            pstmt.setString(4, medico.getHorario());
-            pstmt.setString(5, medico.getEmail());
-            pstmt.setString(6, medico.getTelefone());
-            pstmt.setInt(7, medico.getSala().getIdSala());
-            pstmt.setInt(8, medico.getIdMedico());
+            pstmt.setString(4, medico.getEmail());
+            pstmt.setString(5, medico.getTelefone());
+            pstmt.setInt(6, medico.getIdMedico());
             pstmt.execute();
             pstmt.close();
             connection.close();
@@ -229,15 +208,10 @@ public class MedicoDAO {
                 MedicoRaiz mr = new MedicoRaiz();
                 mr.setIdMedico(rlst.getInt("id_Medico"));
                 mr.setNomeMedico(rlst.getString("nome_Medico"));
+                 mr.setEspecialidade(rlst.getString("especialidade"));
                 mr.setCrm(rlst.getString("crm"));
-                mr.setHorario(rlst.getString("horario"));
                 mr.setEmail(rlst.getString("email"));
                 mr.setTelefone(rlst.getString("telefone"));
-
-                SalaRaiz sala = new SalaRaiz();
-                sala.setIdSala(rlst.getInt("sala"));
-                SalaDAO.getInstancia().pesquisar(sala);
-                mr.setSala(sala);
 
                 medicos.add(mr);
 

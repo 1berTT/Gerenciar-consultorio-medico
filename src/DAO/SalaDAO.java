@@ -68,6 +68,41 @@ public class SalaDAO {
     }
     
     
+    public ArrayList<SalaRaiz> buscaTodosPeloNumero(SalaRaiz sala) throws SQLException {
+
+        connection = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM SALA WHERE numero_sala like ?";
+
+        ResultSet result = null;
+        
+        try{
+            
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, "%" + sala.getNumeroSala() + "%");
+            result = pstmt.executeQuery();
+            ArrayList<SalaRaiz> salas = new ArrayList<>();
+            
+            while (result.next()) {
+                SalaRaiz s = new SalaRaiz();
+                s.setIdSala(result.getInt("id_Sala"));
+                s.setBloco(result.getInt("bloco"));
+                s.setNumeroSala(result.getInt("numero_sala"));
+                
+                salas.add(s);
+            }
+            
+            pstmt.close();
+            connection.close();
+            return salas;
+            
+        }catch (Exception e) {
+            throw new SQLException(e.getMessage());
+        }
+        
+    } 
+    
+    
     
     public void pesquisarPeloNumero(SalaRaiz sala) throws SQLException {
 

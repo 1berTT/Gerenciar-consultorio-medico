@@ -10,10 +10,8 @@ public class MedicoRaiz {
     private String nomeMedico;
     private String crm;
     private String especialidade;
-    private String horario;
     private String email;
     private String telefone;
-    private SalaRaiz sala;
 
     public int getIdMedico() {
         return idMedico;
@@ -47,13 +45,6 @@ public class MedicoRaiz {
         this.especialidade = especialidade;
     }
 
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
 
     public String getEmail() {
         return email;
@@ -71,13 +62,6 @@ public class MedicoRaiz {
         this.telefone = telefone;
     }
 
-    public SalaRaiz getSala() {
-        return sala;
-    }
-
-    public void setSala(SalaRaiz sala) {
-        this.sala = sala;
-    }
 
    
     

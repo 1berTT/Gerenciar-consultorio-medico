@@ -33,8 +33,8 @@
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldSenha" max="32767" attributes="0"/>
-                          <Component id="jTextFieldCodigo" max="32767" attributes="0"/>
+                          <Component id="jTextFieldEmail" max="32767" attributes="0"/>
+                          <Component id="jPasswordFieldSenha" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -55,12 +55,12 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPasswordFieldSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -82,7 +82,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="2" name="C:\Users\humbe\Desktop\codigo.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Codigo(ID):"/>
+        <Property name="text" type="java.lang.String" value="E-mail:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelSenha">
@@ -96,9 +96,7 @@
         <Property name="text" type="java.lang.String" value="Senha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldCodigo">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldSenha">
+    <Component class="javax.swing.JTextField" name="jTextFieldEmail">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonLogin">
       <Properties>
@@ -127,6 +125,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jPasswordFieldSenha">
     </Component>
   </SubComponents>
 </Form>

@@ -32,13 +32,13 @@ public class RecepcionistaControl {
                             this.view.mostraMensagem("Logado com sucesso.");
                             this.view.fecha();
                             this.model.abreTela("PRINCIPAL");
-                        } else {
-                            this.view.mostraMensagem("Usuário ou Senha incorretos.");
+                        }else{
+                            this.view.mostraMensagem("Senha incorreta.");
                             this.model.deslogar();
                         }
                     }
                 } catch (Exception ex) {
-                    this.view.mostraMensagem("Nao foi possível realizar o Login.");
+                    this.view.mostraMensagem("Usuario inexistente.");
                 }
             }
         }

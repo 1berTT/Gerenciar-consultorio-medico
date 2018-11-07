@@ -28,10 +28,6 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
         return jTextFieldCpf.getText();
     }
 
-    public JComboBox getComboMedicos() {
-        return this.jComboBoxMedicos;
-    }
-
     public void fecha() {
         this.setVisible(false);
     }
@@ -73,15 +69,17 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
             return false;
         }
 
-        if (this.jComboBoxMedicos.getSelectedIndex() == -1) {
-            this.mostraMensagem("Informe o medico do paciente.");
-            this.jComboBoxMedicos.requestFocus();
-            return false;
-        }
-
         return true;
     }
 
+    
+    public void limparCampos(){
+        this.jTextFieldCpf.setText("");
+        this.jTextFieldNome.setText("");
+        this.jTextFieldTelefone.setText("");
+    }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,8 +93,6 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
         jTextFieldCpf = new javax.swing.JTextField();
         jButtonLimpar = new javax.swing.JButton();
         jButtonCadastrar = new javax.swing.JButton();
-        jLabelMedico = new javax.swing.JLabel();
-        jComboBoxMedicos = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -138,6 +134,11 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
 
         jButtonLimpar.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\refresh.png")); // NOI18N
         jButtonLimpar.setText("Limpar dados");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonCadastrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\checked.png")); // NOI18N
         jButtonCadastrar.setText("Cadastrar");
@@ -147,9 +148,6 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelMedico.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelMedico.setText("Médico:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,7 +155,6 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxMedicos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldCpf)
                     .addComponent(jTextFieldTelefone)
                     .addComponent(jTextFieldNome)
@@ -165,8 +162,7 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelMedico))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,15 +185,11 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
                 .addComponent(jTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(jLabelMedico)
-                .addGap(2, 2, 2)
-                .addComponent(jComboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCadastrar)
                     .addComponent(jButtonLimpar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,15 +209,18 @@ public class JIFCadastrarPaciente extends javax.swing.JInternalFrame {
         controller.evento("ABRIR TELA");
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        CadastroPacienteControl controller = new CadastroPacienteControl(this, this.model);
+        controller.evento("LIMPAR");
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonLimpar;
-    private javax.swing.JComboBox<String> jComboBoxMedicos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelMedico;
     private javax.swing.JTextField jTextFieldCpf;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldTelefone;

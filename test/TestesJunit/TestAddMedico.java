@@ -38,34 +38,30 @@ public class TestAddMedico {
     @Test
     public void testaAddMedico() throws SQLException{
         MedicoRaiz mr = new MedicoRaiz();
-        SalaRaiz sr = new SalaRaiz();
         
-        sr.setIdSala(3);
+        mr.setNomeMedico("Francisco");
+        mr.setCrm("233-443-121-45");
+        mr.setEspecialidade("Cirurgiao");
         
-        mr.setNomeMedico("Robisdusdbud");
-        mr.setCrm("hehehsdsdee");
-        mr.setEspecialidade("Radiologista");
-        mr.setHorario("7 as 8");
-        mr.setEmail("robesdadwgmail.com");
-        mr.setTelefone("9988");
+        mr.setEmail("francisco@gmail.com");
+        mr.setTelefone("(88) 9 9988-7766");
        
-        mr.setSala(sr);
+       
         
         MedicoDAO.getInstancia().adicionar(mr);
         
         MedicoRaiz medicoCerto = new MedicoRaiz();
         
-        medicoCerto.setIdMedico(10);
+        medicoCerto.setIdMedico(25);
         
         MedicoDAO.getInstancia().pesquisar(medicoCerto);
         
         assertEquals(mr.getNomeMedico(), medicoCerto.getNomeMedico());
         assertEquals(mr.getCrm(), medicoCerto.getCrm());
         assertEquals(mr.getEspecialidade(), medicoCerto.getEspecialidade());
-        assertEquals(mr.getHorario(), medicoCerto.getHorario());
         assertEquals(mr.getEmail(), medicoCerto.getEmail());
         assertEquals(mr.getTelefone(), medicoCerto.getTelefone());
-        assertEquals(mr.getSala().getIdSala(), medicoCerto.getSala().getIdSala());
+       
         
     }
     

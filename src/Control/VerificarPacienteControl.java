@@ -37,7 +37,6 @@ public class VerificarPacienteControl implements Observer {
                             paciente.getNomePaciente(),
                             paciente.getTelefone(),
                             paciente.getCpf(),
-                            String.valueOf(paciente.getMedico().getNomeMedico())
                         };
 
                         ((DefaultTableModel) this.view.getTablePacientes().getModel()).addRow(linha);
@@ -48,13 +47,6 @@ public class VerificarPacienteControl implements Observer {
             }
 
             
-            
-            if (this.model.getMedicos().size() > 0) {
-                this.view.getComboMedicos().removeAll();
-                for (MedicoRaiz medico : this.model.getMedicos()) {
-                    this.view.getComboMedicos().addItem(medico.getNomeMedico());
-                }
-            }
         } catch (Exception ex) {
             this.view.mostraMensagem("Não foi possível atualizar os dados.");
         }
@@ -72,13 +64,11 @@ public class VerificarPacienteControl implements Observer {
     public void evento(String evento) throws SQLException {
         
         this.model.incluiObserver(this);
-        this.model.buscarMedicos();
         
         if (evento != null) {
 
             if (evento.equals("ABRIR TELA")) {
                 this.evento("LISTAR");
-                this.view.getComboMedicos().setSelectedIndex(-1);
                 this.view.limpaCampos();
             }
 
@@ -129,10 +119,7 @@ public class VerificarPacienteControl implements Observer {
                             this.model.alterarPaciente(this.view.getCodigo(),
                                     this.view.getNome(),
                                     this.view.getCpf(),
-                                    this.view.getTelefone(),
-                                    (String) this.view.getComboMedicos().getItemAt(
-                                            this.view.getComboMedicos().getSelectedIndex()
-                                    )
+                                    this.view.getTelefone()
                             );
                             if(((String) this.view.getComboPesquisa().getItemAt(this.view.getComboPesquisa().getSelectedIndex())).equals("Código")){
                                 this.model.buscarPaciente(this.view.getCodigo());
@@ -171,7 +158,6 @@ public class VerificarPacienteControl implements Observer {
 
         this.model.avisaObservers();
         this.model.removerObserver(this);
-
     }
 
 }

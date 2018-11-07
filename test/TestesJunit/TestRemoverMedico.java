@@ -26,8 +26,6 @@ public class TestRemoverMedico {
         assertNull("", mr.getEmail());
         assertNull("", mr.getCrm());
         assertNull("", mr.getNomeMedico());
-        assertNull("", mr.getHorario());
-        assertNull("", mr.getSala());
         assertNull("", mr.getTelefone());
         assertNull("", mr.getEspecialidade());
         

@@ -12,12 +12,29 @@ public class FachadaModels {
 
     private RecepcionistaRaiz usuario;
 
+    private ArrayList<ConsultaRaiz> consultas = new ArrayList<>();
     private ArrayList<MedicoRaiz> medicos = new ArrayList<>();
     private ArrayList<PacienteRaiz> pacientes = new ArrayList<>();
     private ArrayList<SalaRaiz> salas = new ArrayList<>();
-    
+    private ArrayList<RecepcionistaRaiz> recepcionistas = new ArrayList<>();
     
     //GETTERS E SETERS DOS ARRAY LIST DE USADOS NO OBSERVER
+    public void setConsultas(ArrayList<ConsultaRaiz> consultas) {
+        this.consultas = consultas;
+    }
+
+    public ArrayList<ConsultaRaiz> getConsultas() {
+        return this.consultas;
+    }
+    
+    public void setRecepcionistas(ArrayList<RecepcionistaRaiz> recepcionistas) {
+        this.recepcionistas = recepcionistas;
+    }
+
+    public ArrayList<RecepcionistaRaiz> getRecepcionistas() {
+        return this.recepcionistas;
+    }
+    
     public void setPacientes(ArrayList<PacienteRaiz> pacientes) {
         this.pacientes = pacientes;
     }
@@ -48,16 +65,23 @@ public class FachadaModels {
         return usuario;
     }
 
-    public void logar(String usuario, String senha) throws Exception {
-        if (usuario != null && senha != null) {
+    public void logar(String email, String senha) throws Exception {
+        if (email != null && senha != null) {
             this.usuario = new RecepcionistaRaiz();
-            this.usuario.setIdRecepcionista(Integer.parseInt(usuario));
-            RecepcionistaDAO.getInstancia().pesquisar(this.usuario);
+            this.usuario.setEmail(email);
+            RecepcionistaDAO.getInstancia().pesquisarPeloEmail(this.usuario);
+            
+            if(this.usuario.getIdRecepcionista() < 1){
+                this.recepcionistas.add(usuario);
+            }
         }
     }
 
     
-    
+    public void buscarRecepcionista() throws SQLException {
+        RecepcionistaDAO.getInstancia().pesquisar(this.usuario);
+        this.recepcionistas.add(usuario);
+    }
     
     
     public void abreTela(String tela) {
@@ -65,28 +89,71 @@ public class FachadaModels {
             if (tela.equals("PRINCIPAL")) {
                 JPrincipal principal = new JPrincipal(this);
                 principal.setVisible(true);
-            }
+            }  
         }
     }
 
+    
+    public void alterarRecepcionista(String codigo, String nome, String telefone, String email, String senha) throws SQLException {
+
+        RecepcionistaRaiz rr = new RecepcionistaRaiz();
+        
+        rr.setIdRecepcionista(Integer.parseInt(codigo));
+        rr.setNomeRecepcionista(nome);
+        rr.setTelefone(telefone);
+        rr.setEmail(email);
+        rr.setSenha(senha);
+        
+        RecepcionistaDAO.getInstancia().alterar(rr);
+
+        }
+    
+    public void excluirRecepcionista(String codigo) throws SQLException {
+        RecepcionistaDAO.getInstancia().deletar(Integer.parseInt(codigo));
+    }   
+    
+    
+    public void buscarRecepcionista(String codigo) throws SQLException {
+        RecepcionistaRaiz recepcionista = new RecepcionistaRaiz();
+        recepcionista.setIdRecepcionista(Integer.parseInt(codigo));
+        RecepcionistaDAO.getInstancia().pesquisar(recepcionista);
+
+        if(recepcionista.getIdRecepcionista()!= 0){
+            this.recepcionistas.add(recepcionista);
+        }
+    }
+    
     //MÉTODOS DA TELA CADASTRAR MEDICO
-    public void cadastrarMedico(String nome, String crm, String especialidade, String horario, String email,
-            String telefone, String sala) throws SQLException {
+    public void cadastrarMedico(String nome, String crm, String especialidade, String email,
+            String telefone) throws SQLException {
 
         MedicoRaiz medico = new MedicoRaiz();
 
         medico.setNomeMedico(nome);
         medico.setCrm(crm);
         medico.setEspecialidade(especialidade);
-        medico.setHorario(horario);
         medico.setEmail(email);
         medico.setTelefone(telefone);
-
-        medico.setSala(this.buscaSala(sala));
 
         MedicoDAO.getInstancia().adicionar(medico);
     }
 
+    
+    // MÉTODOS DA TELA CADASTRAR RECEPCIONISTA
+    
+        public void cadastrarRecepcionista(String nome, String telefone, String email, String senha) throws SQLException {
+
+        RecepcionistaRaiz recepcionista = new RecepcionistaRaiz();
+
+        recepcionista.setNomeRecepcionista(nome);
+        recepcionista.setTelefone(telefone);
+        recepcionista.setEmail(email);
+        recepcionista.setSenha(senha);
+        
+        RecepcionistaDAO.getInstancia().adicionar(recepcionista);
+    }
+    
+    
     // MÉTODOS DA TELA CADASTRAR SALA
     public void cadastrarSala(String bloco, String numeroSala) throws SQLException {
 
@@ -99,20 +166,45 @@ public class FachadaModels {
 
     }
 
+    //MÉTODOS DA TELA CADASTRAR CONSULTA
+    
+    public void cadastrarConsulta(String data, String hora, String paciente, String medico, String sala) throws SQLException {
+
+        
+        ConsultaRaiz consulta = new ConsultaRaiz();
+
+        consulta.setDataConsulta(data);
+        consulta.setHoraConsulta(hora);
+
+        PacienteRaiz pr = new PacienteRaiz();
+        pr.setNomePaciente(paciente);
+        PacienteDAO.getInstancia().pesquisarPeloNome(pr);
+        
+        consulta.setPaciente(pr);
+        
+        MedicoRaiz mr = new MedicoRaiz();
+        mr.setNomeMedico(medico);
+        MedicoDAO.getInstancia().pesquisarPeloNome(mr);
+        
+        consulta.setMedico(mr);
+
+        SalaRaiz sr = new SalaRaiz();
+        sr.setNumeroSala(Integer.parseInt(sala));
+        SalaDAO.getInstancia().pesquisarPeloNumero(sr);
+        
+        consulta.setSala(sr);
+        
+        ConsultaDAO.getInstancia().adicionar(consulta);
+    }
+    
     // MÉTODOS DA TELA CADASTRAR PACIENTE
-    public void cadastrarPaciente(String nome, String telefone, String cpf, String medico) throws SQLException {
+    public void cadastrarPaciente(String nome, String telefone, String cpf) throws SQLException {
 
         PacienteRaiz paciente = new PacienteRaiz();
 
         paciente.setNomePaciente(nome);
         paciente.setTelefone(telefone);
         paciente.setCpf(cpf);
-
-        MedicoRaiz mr = new MedicoRaiz();
-        mr.setNomeMedico(medico);
-        MedicoDAO.getInstancia().pesquisarPeloNome(mr);
-
-        paciente.setMedico(mr);
 
         PacienteDAO.getInstancia().adicionar(paciente);
     }
@@ -133,6 +225,11 @@ public class FachadaModels {
         this.medicos = MedicoDAO.getInstancia().listar();
     }
 
+    
+    public void buscarConsultas() throws SQLException {
+        this.consultas = ConsultaDAO.getInstancia().listar();
+    }
+    
     public void buscarPacientes() throws SQLException {
         this.pacientes = PacienteDAO.getInstancia().listar();
     }
@@ -143,11 +240,44 @@ public class FachadaModels {
         medico.setIdMedico(codigo);
         MedicoDAO.getInstancia().pesquisar(medico);
 
-        if (medico.getSala() != null) {
+        if (medico.getEspecialidade()!= null) {
             this.medicos.add(medico);
         }
     }
 
+    
+    public void buscarConsulta(int codigo) throws SQLException {
+        ConsultaRaiz consulta = new ConsultaRaiz();
+        consulta.setIdConsulta(codigo);
+        ConsultaDAO.getInstancia().pesquisar(consulta);
+
+        if (consulta.getDataConsulta()!= null) {
+            this.consultas.add(consulta);
+        }
+    }
+    
+    
+    
+    
+    public void buscarSalaPeloNumero(String numero) throws SQLException {
+        SalaRaiz sala = new SalaRaiz();
+        sala.setNumeroSala(Integer.parseInt(numero));
+
+        this.salas = SalaDAO.getInstancia().buscaTodosPeloNumero(sala);
+
+    }
+    
+    
+    public void buscarSala(String codigo) throws SQLException {
+        SalaRaiz sala = new SalaRaiz();
+        sala.setIdSala(Integer.parseInt(codigo));
+        SalaDAO.getInstancia().pesquisar(sala);
+
+        if(sala.getIdSala() != 0){
+            this.salas.add(sala);
+        }
+    }
+    
     public void buscarMedico(String nome) throws SQLException {
         MedicoRaiz medico = new MedicoRaiz();
         medico.setNomeMedico(nome);
@@ -155,6 +285,15 @@ public class FachadaModels {
         this.medicos = MedicoDAO.getInstancia().buscaTodosPeloNome(medico);
     }
 
+    
+    public void buscarConsulta(String data) throws SQLException {
+        ConsultaRaiz consulta = new ConsultaRaiz();
+        consulta.setDataConsulta(data);
+
+        this.consultas = ConsultaDAO.getInstancia().buscaTodosPelaData(consulta);
+    }
+    
+    
     public void buscarPaciente(String nome) throws SQLException {
         PacienteRaiz paciente = new PacienteRaiz();
         paciente.setNomePaciente(nome);
@@ -167,7 +306,7 @@ public class FachadaModels {
         paciente.setIdPaciente(codigo);
         PacienteDAO.getInstancia().pesquisar(paciente);
 
-        if (paciente.getMedico() != null) {
+        if (paciente.getCpf()!= null) {
             this.pacientes.add(paciente);
         }
     }
@@ -179,7 +318,41 @@ public class FachadaModels {
         return m;
     }
 
-    //gol do brasil
+    
+    //JIF VERIFICAR CONSULTA
+    
+        public void alterarConsulta(String codigo, String data, String hora,
+            String paciente, String medico, String sala) throws SQLException{
+        
+        ConsultaRaiz cr = new ConsultaRaiz();
+        
+        cr.setIdConsulta(Integer.parseInt(codigo));
+        cr.setDataConsulta(data);
+        cr.setHoraConsulta(hora);
+        
+        PacienteRaiz pr = new PacienteRaiz();
+        pr.setNomePaciente(paciente);
+        PacienteDAO.getInstancia().pesquisarPeloNome(pr);
+        cr.setPaciente(pr);
+        
+        MedicoRaiz mr = new MedicoRaiz();
+        mr.setNomeMedico(medico);
+        MedicoDAO.getInstancia().pesquisarPeloNome(mr);
+        cr.setMedico(mr);
+        
+        SalaRaiz sr = new SalaRaiz();
+        sr.setNumeroSala(Integer.parseInt(sala));
+        SalaDAO.getInstancia().pesquisarPeloNumero(sr);
+        cr.setSala(sr);
+        
+        ConsultaDAO.getInstancia().alterar(cr);
+        
+    }
+    
+    public void excluirConsulta(String codigo) throws SQLException {
+        ConsultaDAO.getInstancia().deletar(Integer.parseInt(codigo));
+    }
+    
     
     // JIF VERIFICAR MEDICO
     
@@ -188,7 +361,7 @@ public class FachadaModels {
     }
     
     public void alterarMedico(String codigo, String nome, String especialidade,
-            String crm, String horarios, String email, String telefone, int sala) throws SQLException{
+            String crm, String email, String telefone) throws SQLException{
         
         MedicoRaiz mr = new MedicoRaiz();
         
@@ -196,30 +369,40 @@ public class FachadaModels {
         mr.setNomeMedico(nome);
         mr.setEspecialidade(especialidade);
         mr.setCrm(crm);
-        mr.setHorario(horarios);
         mr.setEmail(email);
         mr.setTelefone(telefone);
-       
-        
-        SalaRaiz sr = new SalaRaiz();
-        sr.setNumeroSala(sala);
-        
-        SalaDAO.getInstancia().pesquisarPeloNumero(sr);
-        
-        mr.setSala(sr);
         
         MedicoDAO.getInstancia().alterar(mr);
         
     }
      
      
+    //MÉTODOS DA JIF VERIFICAR SALA
+    
+        public void alterarSala(String codigo, String bloco, String numero) throws SQLException {
+
+        SalaRaiz sr = new SalaRaiz();
+        
+        sr.setIdSala(Integer.parseInt(codigo));
+        sr.setBloco(Integer.parseInt(bloco));
+        sr.setNumeroSala(Integer.parseInt(numero));
+        
+        SalaDAO.getInstancia().alterar(sr);
+
+        }
+    
+        public void excluirSala(String codigo) throws SQLException {
+            SalaDAO.getInstancia().deletar(Integer.parseInt(codigo));
+        }   
+        
+    
     // METODOS DA JIF VERIFICAR PACIENTE    
     public void excluirPaciente(String codigo) throws SQLException {
         PacienteDAO.getInstancia().deletar(Integer.parseInt(codigo));
     }
 
     public void alterarPaciente(String codigo, String nome,
-            String cpf, String telefone, String medico) throws SQLException {
+            String cpf, String telefone) throws SQLException {
 
         PacienteRaiz pr = new PacienteRaiz();
         pr.setIdPaciente(Integer.parseInt(codigo));
@@ -227,18 +410,12 @@ public class FachadaModels {
         pr.setNomePaciente(nome);
         pr.setTelefone(telefone);
 
-        MedicoRaiz mr = new MedicoRaiz();
-        mr.setNomeMedico(medico);
-
-        MedicoDAO.getInstancia().pesquisarPeloNome(mr);
-
-        pr.setMedico(mr);
-
         PacienteDAO.getInstancia().alterar(pr);
 
 
     }
-
+    
+    
     //VARIAVEIS GLOBAIS
     private ArrayList<Observer> observers = new ArrayList<>();
 

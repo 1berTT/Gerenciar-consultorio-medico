@@ -16,18 +16,16 @@ public class TestAlterarMedico {
 
 @Test
 public void testaAlterarMedico() throws SQLException{
-        MedicoRaiz mr = new MedicoRaiz();
-        SalaRaiz sr = new SalaRaiz();
+        MedicoRaiz mr = new MedicoRaiz();        
         
-        sr.setIdSala(3);
         mr.setIdMedico(6);
         mr.setNomeMedico("Romero");
         mr.setCrm("craque");
         mr.setEspecialidade("artilheiro");
-        mr.setHorario("gol direto");
+        
         mr.setEmail("romero@gmail.com");
         mr.setTelefone("2424");
-        mr.setSala(sr);
+        
         
         MedicoDAO.getInstancia().alterar(mr);
         
@@ -40,10 +38,9 @@ public void testaAlterarMedico() throws SQLException{
         assertEquals(mr.getNomeMedico(), medicoCerto.getNomeMedico());
         assertEquals(mr.getCrm(), medicoCerto.getCrm());
         assertEquals(mr.getEspecialidade(), medicoCerto.getEspecialidade());
-        assertEquals(mr.getHorario(), medicoCerto.getHorario());
         assertEquals(mr.getEmail(), medicoCerto.getEmail());
         assertEquals(mr.getTelefone(), medicoCerto.getTelefone());
-        assertEquals(mr.getSala().getIdSala(), medicoCerto.getSala().getIdSala());
+        
         
     
 }

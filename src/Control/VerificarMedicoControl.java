@@ -33,10 +33,8 @@ public class VerificarMedicoControl implements Observer {
                             medico.getNomeMedico(),
                             medico.getEspecialidade(),
                             medico.getCrm(),
-                            medico.getHorario(),
                             medico.getEmail(),
                             medico.getTelefone(),
-                            String.valueOf(medico.getSala().getNumeroSala())
                         };
 
                         ((DefaultTableModel) this.view.getTableMedicos().getModel()).addRow(linha);
@@ -46,12 +44,6 @@ public class VerificarMedicoControl implements Observer {
                 this.model.setMedicos(new ArrayList<>());
             }
             
-            if (this.model.getSalas().size() > 0) {
-                this.view.getComboSala().removeAll();
-                for (SalaRaiz sala : this.model.getSalas()) {
-                    this.view.getComboSala().addItem(sala.getNumeroSala());
-                }
-            }
             
         } catch (Exception ex) {
             this.view.mostraMensagem("Não foi possível atualizar os dados.");
@@ -69,12 +61,10 @@ public class VerificarMedicoControl implements Observer {
 
     public void evento(String evento) throws SQLException {
         this.model.incluiObserver(this);
-        this.model.buscarSalas();
         if (evento != null) {
            
             if(evento.equals("ABRE TELA")){
                 this.evento("LISTAR");
-                this.view.getComboSala().setSelectedIndex(-1);
                 this.view.limpaCampos();
             }
             
@@ -110,10 +100,9 @@ public class VerificarMedicoControl implements Observer {
                         && this.view.getTelefone().equals("")
                         && this.view.getCodigo().equals("") 
                         && this.view.getEspecialidade().equals("")
-                        && this.view.getHorarios().equals("")
                         && this.view.getEmail().equals("")) {
                     
-                            this.view.mostraMensagem("Voce precisa selecionar um medico para exclui-lo.");
+                            this.view.mostraMensagem("Voce precisa selecionar um medico para altera-lo.");
                         
                         } else {
                             try {
@@ -121,12 +110,9 @@ public class VerificarMedicoControl implements Observer {
                                         this.view.getNome(),
                                         this.view.getEspecialidade(),
                                         this.view.getCrm(),
-                                        this.view.getHorarios(),
                                         this.view.getEmail(),
-                                        this.view.getTelefone(), 
-                                        (int) this.view.getComboSala().getItemAt(
-                                                this.view.getComboSala().getSelectedIndex()
-                                        ));
+                                        this.view.getTelefone() 
+                                        );
                                     if(((String) this.view.getComboPesquisa().getItemAt(this.view.getComboPesquisa().getSelectedIndex())).equals("Código")){
                                         this.model.buscarMedico(this.view.getCodigo());
                                         this.view.mostraMensagem("Medico alterado com sucesso.");
@@ -152,7 +138,6 @@ public class VerificarMedicoControl implements Observer {
                         && this.view.getTelefone().equals("")
                         && this.view.getCodigo().equals("") 
                         && this.view.getEspecialidade().equals("")
-                        && this.view.getHorarios().equals("")
                         && this.view.getEmail().equals("")) {
                     
                             this.view.mostraMensagem("Voce precisa selecionar um medico para exclui-lo.");
@@ -193,7 +178,6 @@ public class VerificarMedicoControl implements Observer {
         }
         this.model.avisaObservers();
         this.model.removerObserver(this);
-
     }
 
 }

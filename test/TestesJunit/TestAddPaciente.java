@@ -38,11 +38,8 @@ public class TestAddPaciente {
     public void testaAddPaciente() throws SQLException{
         PacienteRaiz pr = new PacienteRaiz();
         
-        MedicoRaiz mr = new MedicoRaiz();
-        mr.setIdMedico(6);
-        
         pr.setCpf("21");
-        pr.setMedico(mr);
+        
         pr.setTelefone("334");
         pr.setNomePaciente("Jose");
         
@@ -54,7 +51,6 @@ public class TestAddPaciente {
         PacienteDAO.getInstancia().pesquisar(pacienteCerto);
         
         assertEquals(pacienteCerto.getCpf(), pr.getCpf());
-        assertEquals(pacienteCerto.getMedico().getIdMedico(), pr.getMedico().getIdMedico());
         assertEquals(pacienteCerto.getTelefone(), pr.getTelefone());
         assertEquals(pacienteCerto.getNomePaciente(), pr.getNomePaciente());
         

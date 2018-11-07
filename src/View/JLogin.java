@@ -48,15 +48,15 @@ public class JLogin extends javax.swing.JFrame {
     
     
     public boolean validaCampos() {
-        if (this.jTextFieldCodigo.getText().trim().equals("")) {
-            this.mostraMensagem("Informe o seu código.");
-            this.jTextFieldCodigo.requestFocus();
+        if (this.jTextFieldEmail.getText().trim().equals("")) {
+            this.mostraMensagem("Informe o seu e-mail.");
+            this.jTextFieldEmail.requestFocus();
             return false;
         }
 
-        if (this.jTextFieldSenha.getText().trim().equals("")) {
+        if (this.jPasswordFieldSenha.getText().trim().equals("")) {
             this.mostraMensagem("Informe a sua senha.");
-            this.jTextFieldSenha.requestFocus();
+            this.jPasswordFieldSenha.requestFocus();
             return false;
         }
     
@@ -71,11 +71,11 @@ public class JLogin extends javax.swing.JFrame {
     }
     
     public String getUsuario() {
-        return this.jTextFieldCodigo.getText().trim();
+        return this.jTextFieldEmail.getText().trim();
     }
     
     public String getSenha() {
-        return this.jTextFieldSenha.getText().trim();
+        return this.jPasswordFieldSenha.getText().trim();
     }
     
     public void fecha() {
@@ -93,17 +93,17 @@ public class JLogin extends javax.swing.JFrame {
 
         jLabelCodigo = new javax.swing.JLabel();
         jLabelSenha = new javax.swing.JLabel();
-        jTextFieldCodigo = new javax.swing.JTextField();
-        jTextFieldSenha = new javax.swing.JTextField();
+        jTextFieldEmail = new javax.swing.JTextField();
         jButtonLogin = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPasswordFieldSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelCodigo.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\codigo.png")); // NOI18N
-        jLabelCodigo.setText("Codigo(ID):");
+        jLabelCodigo.setText("E-mail:");
 
         jLabelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelSenha.setIcon(new javax.swing.ImageIcon("C:\\Users\\humbe\\Desktop\\key.png")); // NOI18N
@@ -141,8 +141,8 @@ public class JLogin extends javax.swing.JFrame {
                             .addComponent(jLabelCodigo))
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldSenha)
-                            .addComponent(jTextFieldCodigo)))
+                            .addComponent(jTextFieldEmail)
+                            .addComponent(jPasswordFieldSenha)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
@@ -157,11 +157,11 @@ public class JLogin extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCodigo)
-                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSenha)
-                    .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogin)
@@ -223,7 +223,7 @@ public class JLogin extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelSenha;
-    private javax.swing.JTextField jTextFieldCodigo;
-    private javax.swing.JTextField jTextFieldSenha;
+    private javax.swing.JPasswordField jPasswordFieldSenha;
+    private javax.swing.JTextField jTextFieldEmail;
     // End of variables declaration//GEN-END:variables
 }

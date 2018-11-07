@@ -4,6 +4,7 @@ package Control;
 import Model.FachadaModels;
 import View.JIFCadastrarMedico;
 import View.JIFCadastrarSala;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 
@@ -21,22 +22,42 @@ public class CadastroSalaControl {
         }
     }
 
-
+    public void evento(KeyEvent evento) {
+        
+            String caracteres = "0987654321";
+            if (!caracteres.contains(evento.getKeyChar() + "")) {
+                evento.consume();
+            }
+        
+    }
      
     public void evento(String evento) {
         if (evento != null) {
             if (evento.equals("CADASTRAR")) {
                 try {
-                    this.model.cadastrarSala(
-                            this.view.getBloco(),
-                            this.view.getNumeroSala()
-                    );
+                    if(this.view.validaCampos()){ 
+                        this.model.cadastrarSala(
+                                this.view.getBloco(),
+                                this.view.getNumeroSala()
+                        );
+                 
                     this.view.mostraMensagem("Sala cadastrada com sucesso.");
                     this.view.fecha();
+                        
+                    }
+                 
                 } catch (Exception e) {
                     this.view.mostraMensagem("Não foi possível cadastrar a sala.");
                 }
 
+            }
+            
+            if(evento.equals("LIMPAR")){
+                try{
+                    this.view.limparCamppos();
+                }catch(Exception e){
+                    this.view.mostraMensagem("Não foi possível limpar os campos.");
+                }
             }
         }
     }

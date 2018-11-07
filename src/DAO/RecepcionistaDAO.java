@@ -56,6 +56,37 @@ public class RecepcionistaDAO {
 
     }
 
+    
+    public void pesquisarPeloEmail(RecepcionistaRaiz recepcionista) throws SQLException {
+
+        connection = ConnectionFactory.getConnection();
+        String sql = "SELECT * FROM RECEPCIONISTA WHERE email = ? ";
+
+        ResultSet result = null;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, recepcionista.getEmail());
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                recepcionista.setIdRecepcionista(result.getInt("id_Recepcionista"));
+                recepcionista.setNomeRecepcionista(result.getString("nome_Recepcionista"));
+                recepcionista.setTelefone(result.getString("telefone"));
+                recepcionista.setEmail(result.getString("email"));
+                recepcionista.setSenha(result.getString("senha"));
+            }
+
+            pstmt.close();
+            connection.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+            throw new SQLException(e.getMessage());
+        }
+
+    }
+    
+    
+    
     public void adicionar(RecepcionistaRaiz recepcionista) throws SQLException {
 
         String sql = "INSERT INTO RECEPCIONISTA(nome_Recepcionista, telefone, email, senha) VALUES(?,?,?,?)";
@@ -114,13 +145,13 @@ public class RecepcionistaDAO {
         }
     }
 
-    public List<RecepcionistaRaiz> listar() {
+    public ArrayList<RecepcionistaRaiz> listar() {
 
         String sql = "SELECT * FROM RECEPCIONISTA";
 
         try {
 
-            List<RecepcionistaRaiz> recepcionistas = new ArrayList<RecepcionistaRaiz>();
+            ArrayList<RecepcionistaRaiz> recepcionistas = new ArrayList<RecepcionistaRaiz>();
             PreparedStatement pstmt = this.connection.prepareStatement(sql);
             ResultSet rlst = pstmt.executeQuery();
             while (rlst.next()) {

@@ -23,11 +23,6 @@ public class CadastroPacienteControl implements Observer {
 
     public void evento(String evento) {
         this.model.incluiObserver(this);
-        try {
-            this.model.buscarMedicos();
-        } catch (SQLException ex) {
-            this.view.mostraMensagem("Não foi possivel buscar os medicos.");
-        }
         if (evento != null) {
             if (evento.equals("CADASTRAR")) {
                 try {
@@ -35,10 +30,7 @@ public class CadastroPacienteControl implements Observer {
                         this.model.cadastrarPaciente(
                                 this.view.getNomePaciente(),
                                 this.view.getTelefone(),
-                                this.view.getCpf(),
-                                (String) this.view.getComboMedicos().getItemAt(
-                                        this.view.getComboMedicos().getSelectedIndex())
-                                
+                                this.view.getCpf()
                         );
                         this.view.mostraMensagem("Paciente cadastrado com sucesso.");
                         this.view.fecha();
@@ -47,6 +39,15 @@ public class CadastroPacienteControl implements Observer {
                     this.view.mostraMensagem("Não foi possível cadastrar o paciente.");
                 }
             }
+            
+            if(evento.equals("LIMPAR")){
+                try{
+                    this.view.limparCampos();
+                }catch(Exception e){
+                    this.view.mostraMensagem("Não foi possível limpar os camppos.");
+                }
+            }
+            
         }
         this.model.avisaObservers();
         this.model.removerObserver(this);
@@ -54,15 +55,7 @@ public class CadastroPacienteControl implements Observer {
 
     @Override
     public void update() {
-        if (this.model.getMedicos().size() > 0) {
-            this.view.getComboMedicos().removeAll();
-
-            for (MedicoRaiz medico : this.model.getMedicos()) {
-                this.view.getComboMedicos().addItem(medico.getNomeMedico());
-            }
-
-            this.view.getComboMedicos().setSelectedIndex(-1);
-        }
+        
     }
 
 }
